@@ -3,12 +3,12 @@
 require_once(__DIR__ . "/Slide.php");
 
 class TitelSlide extends Slide {
-	private $_titel = "";
-	private $_subtitel = "";
 	
+	/*
+	Maakt een titelslide aan. Een titelslide toont een titel en subtitel.
+	Dit zijn TekstItems met tekstniveau 1 en 2.
+	*/
 	public function __construct(string $titel, string $subtitel) {
-		$this->_titel = $titel;
-		$this->_subtitel = $titel;
 	}
 	
 	/*

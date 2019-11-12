@@ -3,8 +3,10 @@
 class Slide {
 	private $_items = array();
 	
+	/* 
+	Voegt een item toe aan de slide. Items worden onder elkaar, in volgorde getoond.
+	*/
 	public function VoegItemToe(Item $item) {
-		$this->_items[] = $item;
 	}
 	
 	

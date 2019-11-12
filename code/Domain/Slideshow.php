@@ -11,8 +11,6 @@ class Slideshow {
 	Voegt een titel en subtitel toe aan de lijst met ExtraInformatie
 	*/
 	public function __construct(string $titel, string $subtitel) {
-		$this->VoegInfoToe("titel", $titel);
-		$this->VoegInfoToe("subtitel", $subtitel);
 	}
 	
 	/*
@@ -20,9 +18,6 @@ class Slideshow {
 	Voegt extra informatie toe aan de slideshow. Deze informatie mag eender wat zijn.
 	*/
 	public function VoegInfoToe(string $naam, string $waarde) {
-		$newInfo = new ExtraInformatie($naam, $waarde);
-		
-		$this->_extraInfo[] = $newInfo;
 	}
 	
 	/*
@@ -31,12 +26,6 @@ class Slideshow {
 	Als de lijst met slides leeg is, moet de slide van het type TitelSlide zijn
 	*/
 	public function VoegSlideToe(Slide $slide) {
-		if (count($this->_slides) == 0 &&
-			 $slide instanceof TitelSlide == false) {
-			echo "ERROR: eerste slide moet van het type TitelSlide zijn";
-			return;
-		}
-		$this->_slides[] = $slide;
 	}
 	
 	/*
@@ -44,8 +33,6 @@ class Slideshow {
 	Start de presentatie en toont de titelslide
 	*/
 	public function Start() {
-		$this->_wordtAfgespeeld = true;
-		$this->GaNaarTitelSlide();
 	}
 	
 	/*
@@ -53,7 +40,6 @@ class Slideshow {
 	Stopt de presentatie zodat er niets meer getoond wordt.
 	*/
 	public function Stop() {
-		$this->_wordtAfgespeeld = false;
 	}
 	
 	/*
@@ -61,8 +47,6 @@ class Slideshow {
 	Zet de huidige slidenummer/pagina op een nieuwe waarde, en toont die pagina
 	*/
 	public function ToonSlide(int $slideNummer) {
-		$this->_huidigeSlideNummer = $slideNummer;
-		echo $this->_slides[$this->_huidigeSlideNummer]->GetHTMLCode();
 	}
 	
 	/*
@@ -72,12 +56,6 @@ class Slideshow {
 	presentatie gestopt.
 	*/
 	public function GaNaarVolgendeSlide() {
-		if (count($this->_slides) <= $this->_huidigeSlideNummer + 1) {
-			$this->Stop();
-		}
-		else {
-			$this->ToonSlide($this->_huidigeSlideNummer + 1);
-		}
 	}
 	
 	/*
@@ -86,19 +64,12 @@ class Slideshow {
 	Als de huidige pagina de eerste pagina is, wordt de eerste pagina getoond
 	*/
 	public function GaNaarVorigeSlide() {
-		if ($this->_huidigeSlideNummer == 0) {
-			$this->ToonSlide(0);
-		}
-		else {
-			$this->ToonSlide($this->_huidigeSlideNummer - 1);
-		}
 	}
 	
 	/*
 	function GaNaarTitelSlide
-	Toont de titel slide
+	Zorgt ervoor dat de getoonde slide de eerste slide is.
 	*/
 	public function GaNaarTitelSlide() {
-		$this->ToonSlide(0);
 	}
 }

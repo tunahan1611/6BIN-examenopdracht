@@ -5,8 +5,6 @@ class ExtraInformatie {
 	private $_waarde = "";
 	
 	public function __construct(string $naam, string $waarde) {
-		$this->_naam = $naam;
-		$this->_waarde = $waarde;
 	}
 	
 	

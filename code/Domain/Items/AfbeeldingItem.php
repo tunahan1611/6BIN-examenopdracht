@@ -6,7 +6,6 @@ class AfbeeldingItem implements Item {
 	private $_source = "";
 	
 	public function __construct(string $source) {
-		$this->_source = $source;
 	}
 	
 	/*

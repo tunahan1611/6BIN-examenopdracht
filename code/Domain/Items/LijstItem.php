@@ -4,14 +4,12 @@ require_once(__DIR__ . "/Item.php");
 
 class LijstItem implements Item {
 	private $_tekstItems = array();
-	private $_lijstTeken = "-";
+	private $_lijstTeken = "";
 	
 	public function __construct(string $teken) {
-		$this->_lijstTeken = $teken;
 	}
 	
 	public function VoegItemToe(TekstItem $tekstItem) {
-		$this->_tekstItems[] = $tekstItem;
 	}
 	
 	/*

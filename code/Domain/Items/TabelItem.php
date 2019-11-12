@@ -7,12 +7,10 @@ class TabelItem implements Item {
 	private $_aantalKolommen = 1;
 	
 	public function __construct(int $aantalKolommen) {
-		$this->_aantalKolommen = $aantalKolommen;
 	}
 	
 	
 	public function VoegItemToe(Item $item) {
-		$this->_items[] = $item;
 	}
 	
 	/*

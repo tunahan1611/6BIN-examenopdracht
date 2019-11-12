@@ -7,8 +7,6 @@ class TekstItem implements Item {
 	private $_tekstNiveau = null;
 	
 	public function __construct(string $tekst, TekstNiveau $tekstNiveau) {
-		$this->_tekst = $tekst; 
-		$this->_tekstNiveau = $tekstNiveau;
 	}
 	
 	
