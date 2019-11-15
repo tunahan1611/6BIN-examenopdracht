@@ -1,5 +1,6 @@
 <?php
 
+
 class Slideshow {
 	private $_slides = array();
 	private $_extraInfo = array();
@@ -8,9 +9,17 @@ class Slideshow {
 	
 	/*
 	constructor
-	Voegt een titel en subtitel toe aan de lijst met ExtraInformatie
+	Voegt een titel en subtitel toe aan de lijst met ExtraInformatie.
+	Maakt een titelslide aan, en voegt deze toe aan de lijst met slides.
 	*/
 	public function __construct(string $titel, string $subtitel) {
+		$extraInfo = new ExtraInformatie("titel", $titel);
+		$this->_extraInfo[] = $extraInfo;
+		$extraInfo = new ExtraInformatie("subtitel", $subtitel);
+		$this->_extraInfo[] = $extraInfo;
+		
+		$titelSlide = new TitelSlide($titel, $subtitel);
+		$this->_slides[] = $titelSlide;
 	}
 	
 	/*
@@ -18,6 +27,8 @@ class Slideshow {
 	Voegt extra informatie toe aan de slideshow. Deze informatie mag eender wat zijn.
 	*/
 	public function VoegInfoToe(string $naam, string $waarde) {
+		$extraInfo = new ExtraInformatie($naam, $waarde);
+		$this->_extraInfo[] = $extraInfo;
 	}
 	
 	/*
@@ -26,6 +37,7 @@ class Slideshow {
 	Als de lijst met slides leeg is, moet de slide van het type TitelSlide zijn
 	*/
 	public function VoegSlideToe(Slide $slide) {
+		$this->_slides[] = $slide;
 	}
 	
 	/*
@@ -33,6 +45,8 @@ class Slideshow {
 	Start de presentatie en toont de titelslide
 	*/
 	public function Start() {
+		$this->_huidigeSlideNummer = 0;
+		$this->_wordtAfgespeeld = true;
 	}
 	
 	/*
@@ -40,6 +54,7 @@ class Slideshow {
 	Stopt de presentatie zodat er niets meer getoond wordt.
 	*/
 	public function Stop() {
+		$this->_wordtAfgespeeld = false;
 	}
 	
 	/*
@@ -47,6 +62,7 @@ class Slideshow {
 	Zet de huidige slidenummer/pagina op een nieuwe waarde, en toont die pagina
 	*/
 	public function ToonSlide(int $slideNummer) {
+		$this->_huidigeSlideNummer = $slideNummer;
 	}
 	
 	/*
@@ -56,14 +72,26 @@ class Slideshow {
 	presentatie gestopt.
 	*/
 	public function GaNaarVolgendeSlide() {
+		$volgendeSlideNummer = $this->_huidigeSlideNummer + 1;
+		if ($volgendeSlideNummer >= count($this->_slides)) {
+			$this->Stop();
+		}
+		else {
+			$this->ToonSlide($volgendeSlideNummer);
+		}
 	}
 	
 	/*
 	function GaNaarVorigeSlide
 	Toont de vorige pagina
-	Als de huidige pagina de eerste pagina is, wordt de eerste pagina getoond
+	Als de huidige pagina de eerste pagina is, wordt de eerste pagina opnieuw getoond
 	*/
 	public function GaNaarVorigeSlide() {
+		$vorigeSlideNummer = $this->_huidigeSlideNummer - 1;
+		if ($vorigeSlideNummer < 0) {
+			$vorigeSlideNummer = 0;
+		}
+		$this->ToonSlide($vorigeSlideNummer);
 	}
 	
 	/*
@@ -71,5 +99,6 @@ class Slideshow {
 	Zorgt ervoor dat de getoonde slide de eerste slide is.
 	*/
 	public function GaNaarTitelSlide() {
+		$this->ToonSlide(0);
 	}
 }
